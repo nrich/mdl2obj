@@ -23,11 +23,11 @@ import (
 	"bufio"
 	"encoding/binary"
 	"fmt"
-	"html/template"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
+	"text/template"
 )
 
 type vec3 struct {
