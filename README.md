@@ -17,6 +17,8 @@ files in the current working directory:
 The model's material `model.mtl` file expects a texture file named
 `model.jpg` in the same directory.
 
+The name `model` for all file names above is examplary. All names change according to the basename of the input model file name.
+
 ## Build
 
     go build mdl2obj.go
