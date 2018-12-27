@@ -173,33 +173,33 @@ func main() {
 		}
 	}
 
-	for i, stvertice := range stverts {
+	for i, st := range stverts {
 		data.VT[i] = [2]float32{
-			float32(stvertice.S) / float32(mdl.SkinWidth),
-			float32(1 - float32(stvertice.T)/float32(mdl.SkinHeight)),
+			float32(st.S) / float32(mdl.SkinWidth),
+			float32(1 - float32(st.T)/float32(mdl.SkinHeight)),
 		}
 		data.VT[i+int(mdl.NumVerts)] = [2]float32{
-			(float32(stvertice.S) + float32(mdl.SkinWidth/2)) / float32(mdl.SkinWidth),
-			1 - float32(stvertice.T)/float32(mdl.SkinHeight),
+			(float32(st.S) + float32(mdl.SkinWidth/2)) / float32(mdl.SkinWidth),
+			1 - float32(st.T)/float32(mdl.SkinHeight),
 		}
 	}
 
-	for i, triangle := range triangles {
+	for i, t := range triangles {
 		var uv [3]uint32
 
-		for i, vertex := range triangle.Vertex {
-			uv[i] = vertex
-			if triangle.Front == 0 && stverts[vertex].OnSeam != 0 {
+		for i, v := range t.Vertex {
+			uv[i] = v
+			if t.Front == 0 && stverts[v].OnSeam != 0 {
 				uv[i] += mdl.NumVerts
 			}
 		}
 
 		data.F[i] = [6]uint32{
-			triangle.Vertex[0] + 1,
+			t.Vertex[0] + 1,
 			uv[0] + 1,
-			triangle.Vertex[2] + 1,
+			t.Vertex[2] + 1,
 			uv[2] + 1,
-			triangle.Vertex[1] + 1,
+			t.Vertex[1] + 1,
 			uv[1] + 1,
 		}
 	}
