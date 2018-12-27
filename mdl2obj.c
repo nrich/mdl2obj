@@ -165,25 +165,35 @@ int main(int argc, char **argv)
 								   mdl->scale.y * vert[i].v[1] + mdl->origin.y,
 								   mdl->scale.z * vert[i].v[2] + mdl->origin.z);
 		}
-		
+
+		gboolean needs_hack = FALSE;
+
 		for (gint i = 0; i < mdl->num_verts; i++)
 		{
 			g_string_append_printf(obj, "vt %g %g\n",
 								   (float) stvert[i].s / mdl->skin_width,
 								   1 - (float) stvert[i].t / mdl->skin_height);
-		}
-		
-		for (gint i = 0; i < mdl->num_verts; i++)
-		{
-			if (stvert[i].on_seam == 0)
+
+			if (stvert[i].on_seam != 0)
 			{
-				g_string_append_printf(obj, "vt 0 0\n"); // can never be used
+				needs_hack = TRUE;
 			}
-			else
+		}
+
+		if (needs_hack == TRUE)
+		{
+			for (gint i = 0; i < mdl->num_verts; i++)
 			{
-				g_string_append_printf(obj, "vt %g %g\n",
-									   (float) (stvert[i].s + mdl->skin_width / 2) / mdl->skin_width,
-									   1 - (float) stvert[i].t / mdl->skin_height);
+				if (stvert[i].on_seam == 0)
+				{
+					g_string_append_printf(obj, "vt 0 0\n"); // can never be used
+				}
+				else
+				{
+					g_string_append_printf(obj, "vt %g %g\n",
+										(float) (stvert[i].s + mdl->skin_width / 2) / mdl->skin_width,
+										1 - (float) stvert[i].t / mdl->skin_height);
+				}
 			}
 		}
 		
