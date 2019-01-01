@@ -21,4 +21,4 @@ The name `model` for all file names above is examplary. All names change accordi
 
 ## Build
 
-    go build mdl2obj.go
+    go build
