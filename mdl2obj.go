@@ -108,7 +108,7 @@ func main() {
 	}
 
 	if string(mdl.ID[:]) != "IDPO" {
-		panic("MDL magic " + string(mdl.Version) + " != \"IDPO\"")
+		panic("MDL magic " + string(mdl.ID[:]) + " != IDPO")
 	}
 
 	if mdl.Version != 6 {
