@@ -117,11 +117,12 @@ func main() {
 
 	for i := 0; i < int(mdl.NumSkins); i++ {
 		var skin skin
-		var skinGroup skinGroup
-
-		skinGroup.NumSkins = 1
 
 		binary.Read(f, binary.LittleEndian, &skin)
+
+		skinGroup := skinGroup{
+			NumSkins: 1,
+		}
 
 		if skin.Type != 0 {
 			binary.Read(f, binary.LittleEndian, &skinGroup)
