@@ -1,7 +1,7 @@
 /*
  * mdl2obj
  *
- * Copyright (C) 2016-2018 Florian Zwoch <fzwoch@gmail.com>
+ * Copyright (C) 2016-2019 Florian Zwoch <fzwoch@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ type vec3 struct {
 }
 
 type mdlHeader struct {
-	ID           uint32
+	ID           [4]byte
 	Version      uint32
 	Scale        vec3
 	Origin       vec3
@@ -107,7 +107,7 @@ func main() {
 		panic(err)
 	}
 
-	if mdl.ID != 1330660425 {
+	if string(mdl.ID[:]) != "IDPO" {
 		panic("MDL magic " + string(mdl.Version) + " != \"IDPO\"")
 	}
 
